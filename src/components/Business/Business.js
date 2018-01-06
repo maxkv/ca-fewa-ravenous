@@ -38,6 +38,4 @@ class Business extends React.Component {
   }
 }
 
-console.log('Success!');
-
 export default Business;
