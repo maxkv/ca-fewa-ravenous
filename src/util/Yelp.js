@@ -6,14 +6,13 @@ let endpointUrl = 'https://api.yelp.com/v3/businesses/search?term=';
 let Yelp = {
   search: function(term, location, sortBy) {
     let urlToFetch = corsUrl+endpointUrl+term+"&location="+location+"&sort_by="+sortBy;
-    console.log(urlToFetch);
+    //console.log(urlToFetch);
     return fetch(urlToFetch, {
       headers: {Authorization: `Bearer ${apiKey}`},
       Origin: '',
     }
   ).then(response => response.json()).then(jsonResponse => {
     if(jsonResponse.businesses) {
-      console.log(jsonResponse.businesses[0]);
       return jsonResponse.businesses.map(business => ({
         id: business.id,
         imageSrc: business.image_url,
@@ -27,11 +26,10 @@ let Yelp = {
         reviewCount: business.review_count
       }));
     } else {
-      window.alert('not received!!!!')
+      return null;
     }
-  }).then(busobj => console.log(busobj));
+  }).then(busobj => busobj);
   }
 };
 
-//Yelp.search('burger', 'kvernaland', 'best_match');
 export default Yelp;

@@ -16,14 +16,19 @@ class App extends Component {
     let trm = 'burger';
     let loction = 'stavanger';
     let sotBy = 'best_match';
-    Yelp.search(trm, loction, sotBy).then(businesses=> {
-      this.setState({businesses: businesses});
-    });
+    try {
+      Yelp.search(term, location, sortBy).then(businessArray=> {
+        if (businessArray) {
+            this.setState({businesses: businessArray})
+        }
+      })
+    } catch(Error) {console.log(Error);}
   }
 
   render() {
     return (
       <div className="App">
+        <h1>Ravenous</h1>
         <SearchBar searchYelp={this.searchYelp} />
         <BusinessList businesses={this.state.businesses} />
       </div>
